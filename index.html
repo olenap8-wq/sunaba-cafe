@@ -25,6 +25,7 @@ header{
 .header-inner{
   display:flex;
   align-items:center;
+  justify-content:space-between; /* ← これ追加 */
 }
 
 .header-right{
@@ -312,13 +313,77 @@ header.scrolled{
 footer{background:#3a2a1f;color:#eee;padding:50px;text-align:center;font-size:12px}
 
 @media(max-width:768px){
-header{padding:15px 20px}
-.section{padding:60px 20px}
-.about{grid-template-columns:1fr}
-.menu-grid{grid-template-columns:1fr}
-.info{grid-template-columns:1fr}
-.master-card{flex-direction:column}
-.hero h1{font-size:32px}
+
+/* 余白をスマホ用に */
+.section{
+  padding:60px 20px;
+}
+
+/* ===== ヘッダー ===== */
+.header-right{
+  display:none; /* ナビ消す（後でハンバーガーにする） */
+}
+
+/* ===== HERO ===== */
+.hero{
+  height:80vh;
+}
+
+.hero-content h1{
+  font-size:32px;
+}
+
+.hero-text{
+  font-size:13px;
+}
+
+.hero-buttons{
+  flex-direction:column;
+  gap:10px;
+}
+
+/* ===== ABOUT ===== */
+.about-box{
+  flex-direction:column;
+  gap:30px;
+}
+
+.about-images-row{
+  width:100%;
+  justify-content:center;
+}
+
+.about-images-row img{
+  width:45%;
+  height:180px;
+}
+
+/* ===== MASTER ===== */
+.master-card{
+  flex-direction:column;
+  padding:30px 20px;
+  gap:20px;
+}
+
+.master-img{
+  width:100%;
+}
+
+/* ===== MENU ===== */
+.menu-grid{
+  grid-template-columns:1fr;
+}
+
+/* ===== ACCESS ===== */
+.info{
+  grid-template-columns:1fr;
+}
+
+/* ===== FORM ===== */
+.form{
+  padding:20px;
+}
+
 }
 .hero-sub {
   display: inline-block;
@@ -353,22 +418,22 @@ header{padding:15px 20px}
   font-weight: 500;
 }
 
+/* ===== ロゴ ===== */
 .logo{
   display:flex;
   align-items:center;
-  gap:4px; /* ← 最小にする */
+  gap:4px;
 }
 
 .logo-icon{
   height:26px;
-  display:block; /* ← 超重要（隙間消える） */
+  display:block;
 }
 
 .logo-text{
   font-size:22px;
   font-weight:500;
   color:#1f5c3a;
-  margin-left:-2px; /* ← 強制的に詰める */
 }
 /* ===== ABOUT（デザイン一致版） ===== */
 .about-section{
@@ -434,15 +499,168 @@ header{padding:15px 20px}
   color:#555;
 }
 
-/* スマホ */
+/* ===== ハンバーガー ===== */
+.hamburger{
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  cursor:pointer;
+}
+
+.hamburger span{
+  display:block;
+  width:25px;
+  height:3px;
+  background:#333;
+}
+/* ===== スマホ用（ここが本体） ===== */
 @media(max-width:768px){
-  .about-box{
-    flex-direction:column;
+
+  .header-inner{
+    display:flex;
+    justify-content:space-between; /* ← これだけでOK */
+    align-items:center;
   }
 
-  .about-images-row{
-    justify-content:center;
+  .header-right{
+    display:none;
   }
+
+  .hamburger{
+    display:flex;
+  }
+
+}
+/* ===== モバイルメニュー ===== */
+.mobile-menu{
+  position:fixed;
+  top:80px;
+  right:0;
+  width:70%;
+  height:100vh;
+  background:#fff;
+  box-shadow:-5px 0 20px rgba(0,0,0,0.1);
+
+  display:flex;
+  flex-direction:column;
+  padding:30px;
+  gap:20px;
+
+  transform:translateX(100%);
+  transition:0.3s;
+  z-index:999;
+}
+
+.mobile-menu a{
+  text-decoration:none;
+  color:#333;
+  font-size:16px;
+  padding:10px 0;
+  border-bottom:1px solid #eee;
+}
+
+/* 開いた状態 */
+.mobile-menu.active{
+  transform:translateX(0);
+}
+/* ===============================
+   📱 モバイル最適化（追加だけ）
+================================ */
+@media(max-width:768px){
+
+/* ===== 全体余白 ===== */
+.section{
+  padding:60px 16px;
+}
+
+/* ===== HERO ===== */
+.hero{
+  height:85vh;
+}
+
+.hero-content h1{
+  font-size:32px;
+}
+
+.hero-text{
+  font-size:13px;
+}
+
+/* ===== ABOUT ===== */
+.about-box{
+  flex-direction:column;
+  gap:20px;
+}
+
+.about-images-row img{
+  width:48%;
+  height:140px;
+}
+
+/* ===== マスター ===== */
+.master-card{
+  flex-direction:column;
+  text-align:center;
+}
+
+.master-img{
+  width:140px;
+  border-radius:50%;
+}
+
+/* ===== メニュー（ここ重要） ===== */
+.menu-grid{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.card{
+  display:flex;
+  gap:12px;
+  padding:10px;
+}
+
+.card-img img{
+  width:90px;
+  height:90px;
+  border-radius:10px;
+}
+
+.card-body{
+  padding:0;
+}
+
+.card-title{
+  font-size:14px;
+}
+
+.card-desc{
+  font-size:12px;
+}
+
+.card-price-badge{
+  position:static;
+  background:none;
+  color:#333;
+  font-weight:700;
+}
+
+/* ===== アクセス ===== */
+.info{
+  grid-template-columns:1fr;
+}
+
+/* ===== フォーム ===== */
+.form{
+  padding:20px;
+}
+
+/* ===== フッター余白 ===== */
+footer{
+  padding:40px 20px;
+}
+
 }
 </style>
 </head>
@@ -451,27 +669,43 @@ header{padding:15px 20px}
 <header class="header">
   <div class="header-inner">
 
-    <!-- 左：ロゴ -->
-    <div class="logo">
-      <img src="img/logo.svg" class="logo-icon">
-      <span class="logo-text">スナバカフェ</span>
-    </div>
-
-    <!-- 右：ナビ＋ボタン -->
-    <div class="header-right">
-        <nav class="nav">
-            <a href="#top">トップ</a>
-            <a href="#about">こだわり</a>
-            <a href="#master">マスター紹介</a>
-            <a href="#menu">おすすめメニュー</a>
-            <a href="#access">アクセス</a>
-            <a href="#contact">お問い合わせ</a>
-        </nav>
-
-      <a href="#" class="btn header-btn">予約する</a>
-    </div>
-
+  <!-- ロゴ -->
+  <div class="logo">
+    <img src="img/logo.svg" class="logo-icon">
+    <span class="logo-text">スナバカフェ</span>
   </div>
+
+  <!-- PCナビ -->
+  <div class="header-right">
+    <nav class="nav">
+      <a href="#top">トップ</a>
+      <a href="#about">こだわり</a>
+      <a href="#master">マスター紹介</a>
+      <a href="#menu">おすすめメニュー</a>
+      <a href="#access">アクセス</a>
+      <a href="#contact">お問い合わせ</a>
+    </nav>
+
+    <a href="#" class="btn header-btn">予約する</a>
+  </div>
+
+  <!-- ← ここに出す（超重要） -->
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <!-- モバイルメニュー -->
+   <div class="mobile-menu" id="mobileMenu">
+    <a href="#top">トップ</a>
+    <a href="#about">こだわり</a>
+    <a href="#master">マスター紹介</a>
+    <a href="#menu">おすすめメニュー</a>
+    <a href="#access">アクセス</a>
+    <a href="#contact">お問い合わせ</a>
+   </div>
+
+</div>
 </header>
 
 <section class="hero" id="top">
@@ -672,6 +906,12 @@ window.addEventListener("scroll", () => {
   } else {
     header.classList.remove("scrolled");
   }
+});
+const hamburger = document.getElementById("hamburger");
+const mobileMenu = document.getElementById("mobileMenu");
+
+hamburger.addEventListener("click", () => {
+  mobileMenu.classList.toggle("active");
 });
 </script>
 
